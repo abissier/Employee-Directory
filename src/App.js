@@ -11,16 +11,25 @@ function App() {
 
 	//useEffect to make api call on page load
 	useEffect(() => {
-		// API.search().then((res) => console.log(res.data.results));
 		API.search().then((response) => {
 			setEmployeeState(response.data.results);
 		});
 	}, []);
 
+	// sort by name function to send as props to filterbar component
+	const handleNameSort = () => {
+		setEmployeeState(employeeState.sort((a, b) => a.name.first > b.name.first));
+	};
+
+	// sort by country function to send as props to filterbar component
+	const handleCountrySort = () => {
+		setEmployeeState(employeeState.sort((a, b) => a.location.country > b.location.country));
+	};
+
 	return (
 		<Wrapper>
 			<Title />
-			<FilterBar />
+			<FilterBar handleNameSort={handleNameSort} handleCountrySort={handleCountrySort} />
 			{employeeState.map((c) => (
 				<Card
 					key={c.login.uuid}
