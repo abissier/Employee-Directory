@@ -1,6 +1,18 @@
-.filter {
+.filter-wrapper {
 	width: 100%;
+	height: 80px;
+	box-shadow: 0 1px 3px #457b9d;
+	border-radius: 3px;
+	margin-bottom: 10px;
+}
+
+.filter {
+	height: auto;
+	width: 60%;
+	margin: 5px;
+	padding: 30px;
 	display: flex;
-	justify-content: flex-start;
-	margin: 10px;
+	flex-direction: row;
+	justify-content: space-around;
+	font-family: 'Open Sans', sans-serif;
 }
