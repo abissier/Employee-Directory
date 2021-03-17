@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 
-function FilterBar({ handleNameSort, handleCountrySort }) {
+function FilterBar({ handleFirstNameSort, handleLastNameSort, handleCountrySort }) {
 	return (
 		<div class="filter-wrapper">
 			<div class="filter">
@@ -12,10 +12,22 @@ function FilterBar({ handleNameSort, handleCountrySort }) {
 						type="checkbox"
 						id="flexCheckDefault"
 						value="name"
-						onClick={handleNameSort}
+						onClick={handleFirstNameSort}
 					/>
 					<label class="form-check-label" for="flexCheckDefault">
-						Name
+						First Name
+					</label>
+				</div>
+				<div class="form-check">
+					<input
+						class="form-check-input"
+						type="checkbox"
+						id="flexCheckDefault"
+						value="name"
+						onClick={handleLastNameSort}
+					/>
+					<label class="form-check-label" for="flexCheckDefault">
+						Last Name
 					</label>
 				</div>
 				<div class="form-check">

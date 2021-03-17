@@ -16,20 +16,69 @@ function App() {
 		});
 	}, []);
 
-	// sort by name function to send as props to filterbar component
-	const handleNameSort = () => {
-		setEmployeeState(employeeState.sort((a, b) => a.name.first > b.name.first));
+	useEffect(
+		() => {
+			console.log('Employee State Changed');
+		},
+		[ employeeState ]
+	);
+
+	// sort by first name function to send as props to filterbar component
+	const handleFirstNameSort = () => {
+		setEmployeeState(
+			[ ...employeeState ].sort((a, b) => {
+				let nameA = a.name.first.toLowerCase();
+				let nameB = b.name.first.toLowerCase();
+				if (nameA < nameB) {
+					return -1;
+				} else if (nameA > nameB) {
+					return 1;
+				}
+				return 0;
+			})
+		);
+	};
+
+	// sort by last name function to send as props to filterbar component
+	const handleLastNameSort = () => {
+		setEmployeeState(
+			[ ...employeeState ].sort((a, b) => {
+				let nameA = a.name.last.toLowerCase();
+				let nameB = b.name.last.toLowerCase();
+				if (nameA < nameB) {
+					return -1;
+				} else if (nameA > nameB) {
+					return 1;
+				}
+				return 0;
+			})
+		);
 	};
 
 	// sort by country function to send as props to filterbar component
 	const handleCountrySort = () => {
-		setEmployeeState(employeeState.sort((a, b) => a.location.country > b.location.country));
+		setEmployeeState(
+			[ ...employeeState ].sort((a, b) => {
+				let locationA = a.location.country.toLowerCase();
+				let locationB = b.location.country.toLowerCase();
+				if (locationA < locationB) {
+					return -1;
+				} else if (locationA > locationB) {
+					return 1;
+				}
+				return 0;
+			})
+		);
 	};
 
 	return (
 		<Wrapper>
 			<Title />
-			<FilterBar handleNameSort={handleNameSort} handleCountrySort={handleCountrySort} />
+			<FilterBar
+				handleFirstNameSort={handleFirstNameSort}
+				handleLastNameSort={handleLastNameSort}
+				handleCountrySort={handleCountrySort}
+			/>
 			{employeeState.map((c) => (
 				<Card
 					key={c.login.uuid}
