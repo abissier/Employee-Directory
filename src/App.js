@@ -6,26 +6,24 @@ import FilterBar from './components/FilterBar/FilterBar';
 import Card from './components/Card/Card';
 
 function App() {
-	//useState to set state
+	//useState to capture employees from api call
 	const [ employeeState, setEmployeeState ] = useState([]);
+	//make copy of employee state
+	const [ filteredEmployees, setFilteredEmployees ] = useState([]);
+	// track search input value
+	const [ search, setSearch ] = useState('');
 
-	//useEffect to make api call on page load
+	//useEffect to make api call on page load and set state
 	useEffect(() => {
 		API.search().then((response) => {
 			setEmployeeState(response.data.results);
+			setFilteredEmployees(response.data.results);
 		});
 	}, []);
 
-	useEffect(
-		() => {
-			console.log('Employee State Changed');
-		},
-		[ employeeState ]
-	);
-
 	// sort by first name function to send as props to filterbar component
 	const handleFirstNameSort = () => {
-		setEmployeeState(
+		setFilteredEmployees(
 			[ ...employeeState ].sort((a, b) => {
 				let nameA = a.name.first.toLowerCase();
 				let nameB = b.name.first.toLowerCase();
@@ -41,7 +39,7 @@ function App() {
 
 	// sort by last name function to send as props to filterbar component
 	const handleLastNameSort = () => {
-		setEmployeeState(
+		setFilteredEmployees(
 			[ ...employeeState ].sort((a, b) => {
 				let nameA = a.name.last.toLowerCase();
 				let nameB = b.name.last.toLowerCase();
@@ -57,7 +55,7 @@ function App() {
 
 	// sort by country function to send as props to filterbar component
 	const handleCountrySort = () => {
-		setEmployeeState(
+		setFilteredEmployees(
 			[ ...employeeState ].sort((a, b) => {
 				let locationA = a.location.country.toLowerCase();
 				let locationB = b.location.country.toLowerCase();
@@ -71,6 +69,26 @@ function App() {
 		);
 	};
 
+	// update state with users search value
+	const handleInputChange = (event) => {
+		setSearch(event.target.value);
+	};
+
+	// watch for changes to users seach value
+	useEffect(
+		() => {
+			// only call handleUser function if user has entered search input
+			handleUserSort();
+		},
+		[ search ]
+	);
+
+	const handleUserSort = () => {
+		setFilteredEmployees(
+			[ ...employeeState ].filter((employee) => employee.name.first.toLowerCase().includes(search))
+		);
+	};
+
 	return (
 		<Wrapper>
 			<Title />
@@ -78,8 +96,11 @@ function App() {
 				handleFirstNameSort={handleFirstNameSort}
 				handleLastNameSort={handleLastNameSort}
 				handleCountrySort={handleCountrySort}
+				handleInputChange={handleInputChange}
+				setEmployeeState={setEmployeeState}
+				setSearch={setSearch}
 			/>
-			{employeeState.map((c) => (
+			{filteredEmployees.map((c) => (
 				<Card
 					key={c.login.uuid}
 					firstName={c.name.first}

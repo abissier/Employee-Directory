@@ -9,10 +9,15 @@
 .filter {
 	height: auto;
 	width: 60%;
-	/* margin: 5px; */
 	padding: 30px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 	font-family: 'Open Sans', sans-serif;
+}
+
+fieldset input {
+	height: 35px;
+	border-radius: 3px;
+	border: 1px solid #457b9d;
 }
