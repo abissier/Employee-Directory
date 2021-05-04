@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import API from './utils/API';
 import Wrapper from './components/Wrapper/Wrapper';
-import Title from './components/Title/Title';
+import Header from './components/Header/Header';
 import FilterBar from './components/FilterBar/FilterBar';
 import Card from './components/Card/Card';
 
@@ -91,7 +91,7 @@ function App() {
 
 	return (
 		<Wrapper>
-			<Title />
+			<Header />
 			<FilterBar
 				handleFirstNameSort={handleFirstNameSort}
 				handleLastNameSort={handleLastNameSort}
