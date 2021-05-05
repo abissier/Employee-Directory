@@ -85,7 +85,11 @@ function App() {
 
 	const handleUserSort = () => {
 		setFilteredEmployees(
-			[ ...employeeState ].filter((employee) => employee.name.first.toLowerCase().includes(search))
+			[ ...employeeState ].filter((employee) => {
+				let fullName = employee.name.first.toLowerCase() + employee.name.last.toLowerCase();
+
+				return fullName.includes(search);
+			})
 		);
 	};
 
