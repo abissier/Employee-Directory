@@ -8,3 +8,27 @@
 	justify-content: space-around;
 	align-content: flex-start;
 }
+
+/* Scroll bar from W3 schools */
+/* width */
+::-webkit-scrollbar {
+	width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px grey;
+	border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #457b9d;
+	border-radius: 5px;
+}
+
+@media screen and (max-width: 600px) {
+	::-webkit-scrollbar {
+		display: none;
+	}
+}
